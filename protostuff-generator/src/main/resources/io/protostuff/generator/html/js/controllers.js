@@ -45,3 +45,15 @@ function ProtoDetailCtrl($scope, $http, $routeParams) {
         });
 }
 controllers.controller('ProtoDetailCtrl', ['$scope', '$http', '$routeParams', ProtoDetailCtrl]);
+
+function PageCtrl($scope, $http, $routeParams, $sce) {
+    var pageId;
+    $scope.pageId = pageId = $routeParams.pageId;
+    $http.get('data/pages/' + pageId + '.json')
+        .success(function (data) {
+            $scope.page = {};
+            $scope.page.name = data.name;
+            $scope.page.content = $sce.trustAsHtml(data.content);
+        });
+}
+controllers.controller('PageCtrl', ['$scope', '$http', '$routeParams', '$sce', PageCtrl]);
